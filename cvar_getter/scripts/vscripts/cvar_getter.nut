@@ -12,7 +12,7 @@
 ::_FinishAcquireCvar <- function(cvar, logfilename)
 {
 	// Anything printed here will be put to the log file that we will want to execute later.
-	print("say_team "); // prepend say_team to the file, we will make the hosting player / server say the output of the convar, so we can catch it as an event and prase it. It's important that we don't have newline at the end!!!
+	print(@"say_team $CVG$"); // prepend say_team to the file, we will make the hosting player / server say the output of the convar, so we can catch it as an event and prase it. It's important that we don't have newline at the end!!!
 	// Sending just the convar name (without assigning it) to the console will make it print out the value of it along with other stuff, we can use it to out advantage and grab the value from it.
 	SendToConsole(cvar);
 	SendToConsole(@"con_logfile """" "); // stop logging information
@@ -32,10 +32,13 @@ function SetupListener()
 			try {
 			if(k=="event_data")
 			{
-				local current_cvar = cvar_queue.remove(0);
 				local event = v;
+				// check for special string
+				if (event.text.find(@"$CVG$") == null) return;
+
+				local current_cvar = cvar_queue.remove(0);
 				// one quote is ommited so let's add it back so that we can use regex properly.
-				local text_fixed = "\""+event.text;
+				local text_fixed = "\""+event.text.slice(4);
 				// capture stuff between quotes into groups
 				local exp = regexp(@" ""([^""]*)"" "); 
 				local group = exp.capture(text_fixed);
