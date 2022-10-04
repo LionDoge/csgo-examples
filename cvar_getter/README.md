@@ -37,5 +37,10 @@ script printl(::GetConVar("mp_warmuptime"))
 
 <li>A file is created each time a convar is acquired as mentionted earlier</li>
 </ul>
+
+### How it works
+This method uses the fact that typing out the convar name without any values will print out the value of it to the console.
+The way this method works is that the command is sent to the console which will print out the values with other gibberish, it's also prepended with 'say_team ' and logged to a file that will sit in cfg directory.
+That file then gets executed which will make the player say the guts of what has been printed, and that can be interpreted by a event listener that can parse the string and get out the actual value.
   
  
