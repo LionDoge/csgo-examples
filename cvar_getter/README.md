@@ -28,5 +28,14 @@ Test it out by running the following in console:
 script ::AcquireCvar("mp_warmuptime")
 script printl(::GetConVar("mp_warmuptime"))
 ```
+
+### Caveats
+<ul>
+<li>There needs to be a delay between acquiring a convar and actually getting the value. It's not really possible to overcome it with this method. If you actually want to do it you need to delay the <code>::GetConVar()</code> part after using <code>::AcquireCvar</code></li>
+
+<li>Some stuff will get sent to chat to obtain the values. I haven't found a better method yet that wouldn't require sv_cheats.</li>
+
+<li>A file is created each time a convar is acquired as mentionted earlier</li>
+</ul>
   
  
