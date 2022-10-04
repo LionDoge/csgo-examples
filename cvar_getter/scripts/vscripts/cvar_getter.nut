@@ -38,7 +38,7 @@ function SetupListener()
 
 				local current_cvar = cvar_queue.remove(0);
 				// one quote is ommited so let's add it back so that we can use regex properly.
-				local text_fixed = "\""+event.text.slice(4);
+				local text_fixed = "\""+event.text.slice(5);
 				// capture stuff between quotes into groups
 				local exp = regexp(@" ""([^""]*)"" "); 
 				local group = exp.capture(text_fixed);
